@@ -1,21 +1,14 @@
 function getResult(a, b, c) {
   // код для задачи №1 писать здесь
-  if (a == 0) return false;
-  let x = {};
-  let D = b * b - 4 * a * c;
+  "use strict";
+  let x = [];
+  let D = b ** 2 - 4 * a * c;
   console.log("D = " + D);
-  if (D < 0) {
-    return (x = []);
-  }
-
-  x["discriminant"] = D;
-  if (D == 0) {
-    x["quadratic roots"] = (-b + Math.sqrt(D)) / (2 * a);
+  if (D === 0) {
+    x.push(-b / (2 * a));
   } else if (D > 0) {
-    let tmp = [];
-    tmp.push((-b + Math.sqrt(D)) / (2 * a));
-    tmp.push((-b - Math.sqrt(D)) / (2 * a));
-    x["quadratic roots"] = tmp;
+    x.push((-b + Math.sqrt(D)) / (2 * a));
+    x.push((-b - Math.sqrt(D)) / (2 * a));
   }
   return x;
 }
