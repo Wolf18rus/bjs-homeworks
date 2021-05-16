@@ -23,11 +23,11 @@ function getSolutions(a, b, c) {
       roots: [x1, x2],
     };
   }
-  return getSolutions();
+  return getSolutions(1, 5, 4);
 }
 
 function showSolutionsMessage(a, b, c) {
-  let result = getSolutions(1, 2, 10);
+  let result = getSolutions();
   console.log(
     `Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}    \n Значение дискриминанта:${result.D}»`
   );
@@ -40,7 +40,7 @@ function showSolutionsMessage(a, b, c) {
   }
   console.log(result);
 }
-console.log(showSolutionsMessage(1, 2, 10));
+console.log(showSolutionsMessage(1, 5, 4));
 
 // Задание 2
 
