@@ -23,11 +23,10 @@ function getSolutions(a, b, c) {
       roots: [x1, x2],
     };
   }
-  return getSolutions(1, 5, 4);
 }
 
 function showSolutionsMessage(a, b, c) {
-  let result = getSolutions();
+  let result = getSolutions(1, 5, 4);
   console.log(
     `Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}    \n Значение дискриминанта:${result.D}»`
   );
@@ -38,7 +37,6 @@ function showSolutionsMessage(a, b, c) {
   } else if (result.D > 0) {
     return ` «Уравнение имеет два  корня X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}» `;
   }
-  console.log(result);
 }
 console.log(showSolutionsMessage(1, 5, 4));
 
