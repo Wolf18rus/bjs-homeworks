@@ -1,44 +1,74 @@
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  // код для задачи №1 писать здесь
-  "use strict";
+  percent = String(percent);
+  contribution = String(contribution);
+  amount = String(amount);
 
-  if (
-    isNaN(percent) ||
-    isNaN(contribution) ||
-    isNaN(amount) ||
-    contribution === "" ||
-    amount === "" ||
-    date == null ||
-    date == "" ||
-    isNaN(date)
-  ) {
-    return `Пойжалуста заполните все указанные поля ввода `;
+  if (isNaN(percent)) {
+    // Валидация процентов - текст и курсор не стоит
+    return percent;
+  } else if (percent <= 0 || percent > 40) {
+    return percent;
   }
 
-  let sum = amount - contribution;
-  let procent = percent / 12 / 100;
-  let nextYear = date.getFullYear();
-  let nextMoth = date.getMonth();
-  let year =
-    (nextYear - new Date().getFullYear()) * 12 +
-    (nextMoth - new Date().getMonth());
-  let results;
-  let paymentInMonth = sum * (procent + procent / ((1 + procent) ** year - 1));
-  console.log(paymentInMonth);
-  results = paymentInMonth * year;
-  let totalAmount = results.toFixed(2);
-  return `${totalAmount}`;
+  if (isNaN(contribution)) {
+    // Валидация первочначального взноса - текст и курсор не стоит
+    return contribution;
+  } else {
+    let lengthContribution = contribution.trim().length;
+    if (!lengthContribution) {
+      // Делаем проверку на наличие "0" или ""
+      return contribution;
+    } else if (contribution < 0 || contribution > amount) {
+      return contribution;
+    }
+  }
+
+  if (isNaN(amount)) {
+    // Валидация суммы кредита - текст и курсор не стоит
+    return amount;
+  } else if (amount <= 0 || !Boolean(amount)) {
+    return amount;
+  }
+
+  if (isNaN(date)) {
+    // Валидация даты окончания кредита (срок не менее месяца) - курсор не стоит
+    return date;
+  } else if (date <= new Date(new Date().setDate(new Date().getDate() + 31))) {
+    return date;
+  }
+
+  percent = Number(percent);
+  contribution = Number(contribution);
+  amount = Number(amount);
+
+  let bodyOfCredit = amount - contribution; // Тело кредита
+  let monthlyRate = percent / 100 / 12; // Месячная процентная ставка
+  let numberOfMonths =
+    (date.getFullYear() - new Date().getFullYear()) * 12 +
+    date.getMonth() -
+    new Date().getMonth(); // Количество месяцев
+
+  let monthlyPayment =
+    bodyOfCredit *
+    (monthlyRate +
+      monthlyRate / (Math.pow(1 + monthlyRate, numberOfMonths) - 1)); // Расчет ежемесячного платежа
+  alert(
+    `процентная ставка ===> ${monthlyRate} \n !!! количество месяцев ===> ${numberOfMonths} \n !!! ежемесячный платеж ===> ${monthlyPayment}`
+  );
+
+  let totalAmount = Number((monthlyPayment * numberOfMonths).toFixed(2)); // Расчет общей суммы выплаты
+
+  return totalAmount;
 }
 
 function getGreeting(name) {
-  if (name === "" || !isNaN(name) || name === null) {
-    let anonim = "Аноним ";
-    console.log("В поле только кириллица");
-    return ` Привет, мир! Меня зовут${anonim}.`;
-  } else if (name || name !== "") {
-    return ` Привет, мир! Меня зовут-${name}.`;
-  }
-  //если нужно запретить ввод определёных символов
+  let name1;
 
-  return greeting;
+  if (name === undefined || name.trim() == "") {
+    name1 = "Аноним";
+  } else {
+    name1 = name;
+  }
+
+  return `Привет, мир! Меня зовут ${name1.trim()}.`;
 }
